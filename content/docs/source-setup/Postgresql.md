@@ -83,7 +83,11 @@ bookHidden: false
 
 <br></br>
 
+<<<<<<< HEAD
 **For the proceeding steps 3-5, position yourself in Replicant's ```HOME``` directory**
+=======
+**For the proceeding steps 3-5, position yourself in ```$REPLICANT_HOME``` directory**
+>>>>>>> fa6641a... added mysql cdc setup and mariadb
 ## III. Setup Connection Configuration
 
 1. Navigate to the connection configuration file
