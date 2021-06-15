@@ -5,14 +5,16 @@ bookHidden: false
 ---
 # Source: PostgreSQL
 
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
+
 ## I. Create a user in postgresql
 
-1. Log in to postgresql client
+1. Log in to postgresql client:
     ```BASH
     psql -U $POSTGRESQL_ROOT_USER
     ```
 
-2. Create a user used for replication
+2. Create a user used for replication:
     ```sql
     CREATE USER <username> PASSWORD '<password>';
     ```
@@ -38,7 +40,7 @@ bookHidden: false
 
 
 ## II. Setup PostgreSQL for Replication
-1. Edit postgresql.conf
+1. Edit postgresql.conf:
    ```BASH
    vi $PGDATA/postgresql.conf
    ```
@@ -54,11 +56,11 @@ bookHidden: false
     **Instructions for using wal2json**
     1. Install the wal2json plugin with the steps from the following link: https://github.com/eulerto/wal2json/blob/master/README.md
 
-    2. Create a logical replication slot for the given catalog to be replicated with the following SQL.
+    2. Create a logical replication slot for the given catalog to be replicated with the following SQL:
         ```SQL
         SELECT 'init' FROM pg_create_logical_replication_slot('<replication_slot_name>', 'wal2json');
         ```
-    3. Verify the slot has been created
+    3. Verify the slot has been created:
         ```sql
         SELECT * from pg_replication_slots;
         ```
@@ -71,26 +73,22 @@ bookHidden: false
         ```SQL
         SELECT 'init' FROM pg_create_logical_replication_slot('<replication_slot_name>', 'test_decoding');
         ```
-    2. Verify the slot has been created
+    2. Verify the slot has been created:
         ```sql
         SELECT * from pg_replication_slots;
         ```
 
-4. Set the replicant identity to FULL for the tables  part of the replication process that do no have a primary key
+4. Set the replicant identity to FULL for the tables  part of the replication process that do no have a primary key:
    ```SQL
    ALTER TABLE <table_name> REPLICA IDENTITY FULL;
    ```
 
 <br></br>
 
-<<<<<<< HEAD
-**For the proceeding steps 3-5, position yourself in Replicant's ```HOME``` directory**
-=======
 **For the proceeding steps 3-5, position yourself in ```$REPLICANT_HOME``` directory**
->>>>>>> fa6641a... added mysql cdc setup and mariadb
 ## III. Setup Connection Configuration
 
-1. Navigate to the connection configuration file
+1. From `$REPLICANT_HOME`, navigate to the connection configuration file:
     ```BASH
     vi conf/conn/postgresql.yaml
     ```
@@ -122,7 +120,7 @@ bookHidden: false
 
 **Note**: If the log-reader-type is set to `STREAM`, the replication connection must be allowed as the <username> that will be used to perform the replication. To enable replication connection, the pg_hba.conf file needs to be modified with some of the following entries depending on the use-case:
 
-1. Navigate to the pg_hba file:
+1. From `$REPLICANT_HOME`, navigate to the pg_hba file:
    ```BASH
    vi $PGDATA/pg_hba.conf
    ```
@@ -142,11 +140,11 @@ bookHidden: false
 
 ## IV. Setup Filter Configuration
 
-1. Navigate to the filter configuration file
+1. From `$REPLICANT_HOME`, navigate to the filter configuration file:
     ```BASH
     vi filter/postgresql_filter.yaml
     ```
-2. In accordance to you replication needs, specify the data which is to be replicated. Use the format of the example explained below.  
+2. In accordance to you replication needs, specify the data which is to be replicated. Use the format of the example explained below:
 
     ```yaml
     allow:
@@ -193,26 +191,25 @@ bookHidden: false
           <your_table_name>:
             allow: ["your_column_name"] #if necessary
             conditions: "your_condition" #if necessary    
-
         ```
-
+For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference")
 
 ## V. Setup Extractor Configuration
 
 For real-time replication, you must create a heartbeat table in the source PostgreSQL
 
-1. Create a heartbeat table in any schema of the database you are going to replicate with the following DDL
+1. Create a heartbeat table in any schema of the database you are going to replicate with the following DDL:
     ```SQL
     CREATE TABLE "<user_database>"."public"."replicate_io_cdc_heartbeat"("timestamp" INT8 NOT NULL, PRIMARY  KEY("timestamp"))
     ```
 
 2. Grant ```INSERT```, ```UPDATE```, and ```DELETE``` privileges to the user configured for replication
 
-3. Navigate to the extractor configurations
+3. From `$REPLICANT_HOME`, navigate to the extractor configuration file:
     ```BASH
     vi conf/src/postgresql.yaml
     ```
-4. Under the Realtime Section, make the necessary changes as follows
+4. Under the Realtime Section, make the necessary changes as follows:
      ```YAML
      realtime:
        heartbeat:
@@ -231,10 +228,10 @@ If you are unable to create replication slots in postgresql using either wal2jso
 
 Note: It is strongly recommended to supply a row-identifier-key in the per-table-config section for a table which does not have a PK/UK defined
 
-1. Navigate to the sample delta-snapshot configuration file
-  ```BASH
-  vi/conf/src/postgresql_delta.yaml
-  ```
+1. From `$REPLICANT_HOME`, navigate to the sample delta-snapshot configuration file:
+    ```BASH
+    vi/conf/src/postgresql_delta.yaml
+    ```
 2. Under the delta snapshot section, make the necessary changes as follows:
      ```YAML
       delta-snapshot:
