@@ -249,7 +249,7 @@ The proceeding steps are to set up Replicant. The extracted `replicant-cli` will
             allow: ["your_column_name"]
             conditions: "your_condition"  
       ```
-For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference")
+For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference").
 
 ## VII. Setup Extractor Configuration
 
@@ -306,4 +306,4 @@ For real-time replication, you must create a heartbeat table in the source Oracl
       #start-position:
         #start-scn: 2362927
     ```
-For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference")
+For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference").

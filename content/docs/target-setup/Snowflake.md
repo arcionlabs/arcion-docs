@@ -4,9 +4,11 @@ weight: 10
 ---
 # Destination Snowflake
 
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
+
 ## I. Setup Connection Configuration
 
-1. From Replicant's ```Home``` directory, navigate to the sample Snowflake connection configuration file
+1. From `$REPLICANT_HOME`, navigate to the sample Snowflake connection configuration file:
     ```BASH
     vi conf/conn/snowlflake.yaml
     ```
@@ -26,7 +28,7 @@ weight: 10
 
 ## II. Setup Applier Configuration
 
-1. Navigate to the sample Snowflake applier configuration file
+1. From `$REPLICANT_HOME`, navigate to the sample Snowflake applier configuration file:
     ```BASH
     vi conf/dst/snowlflake.yaml        
     ```
@@ -46,10 +48,11 @@ weight: 10
 
         #For versions 20.09.14.3 and beyond
         native-load-configs: #Specify the user-provided LOAD configuration string which will be appended to the s3 specific LOAD SQL command
-        
+
     realtime:
       threads: 8 #Specify the maximum number of threads Replicant should use for writing to the target
       max-retries-per-op: 30 #Specify the maximum amount of retries for a failed operation
       retry-wait-duration-ms: 5000 #Specify the time in milliseconds Replicant should wait before re-trying a failed operation
       cdc-stage-type: FILE #Enter your cdc-stage-type
     ```
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 

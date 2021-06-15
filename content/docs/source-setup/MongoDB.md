@@ -81,7 +81,7 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
             allow: "your_column_name"]
             conditions: "your_condition"         
       ```
-For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference")
+For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference").
 
 3. Using the format shown in the step above (step 2) specify the database, collections, or documents  which will be part of real-time replication under the ```global-filter``` section
 
@@ -112,4 +112,4 @@ For real-time replication, you must create a heartbeat table in the source Mongo
         table-name [20.09.14.3]: replicate_io_cdc_heartbeat #Replace replicate_io_cdc_heartbeat with your heartbeat table's name if applicable
         column-name [20.10.07.9]: timestamp #Replace timestamp with your heartbeat table's column name if applicable
     ```
-For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference")
+For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference").

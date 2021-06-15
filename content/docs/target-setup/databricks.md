@@ -4,7 +4,7 @@ weight: 13
 ---
 # Destination Databricks Delta Lake
 
-The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory in the proceeding steps.
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
 
 ## I. Setup Connection Configuration
 

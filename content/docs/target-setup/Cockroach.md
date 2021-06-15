@@ -4,9 +4,11 @@ weight: 4
 ---
 # Destination Cockroach
 
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
+
 ## I. Setup Connection Configuration
 
-1. From Replicant's ```Home``` directory, navigate to the sample memSQL connection configuration file
+1. From `$REPLICANT_HOME`, navigate to the sample memSQL connection configuration file:
     ```BASH
     vi conf/conn/cockroach.yaml
     ```
@@ -49,7 +51,7 @@ weight: 4
 
 ## II. Setup Applier Configuration
 
-1. Navigate to the applier configuration file
+1. From `$REPLICANT_HOME`, navigate to the applier configuration file:
     ```BASH
     vi conf/dst/cockroach.yaml
     ```
@@ -74,6 +76,5 @@ weight: 4
     #   method: COPY # COPY, IMPORT
     #   max-files-per-bulk-load: 1
     #   serialize: false
-
-
     ```
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 

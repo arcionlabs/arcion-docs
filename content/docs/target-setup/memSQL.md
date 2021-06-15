@@ -5,7 +5,7 @@ bookHidden: false
 ---
 # Destination memSQL
 
-The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory in the proceeding steps.
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
 
 ## Prerequisites
 You must have a user configured in memSQL for replication with `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `CREATE`, `DROP` permissions on application databases.
@@ -14,7 +14,7 @@ If memsql user does not have create database permission then you must create a d
 
 ## I. Setup Connection Configuration
 
-1. From `$REPLICANT_HOME`, navigate to the sample memSQL connection configuration file
+1. From `$REPLICANT_HOME`, navigate to the sample memSQL connection configuration file:
     ```BASH
     vi conf/conn/memsql.yaml
     ```
@@ -95,4 +95,4 @@ Edit the applier configurations if required.
     # replay-shard-key-update-as-delete-insert: true
     # retry-failed-txn-idempotently: true
     ```
-For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference")
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 

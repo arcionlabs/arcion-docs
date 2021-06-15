@@ -156,7 +156,7 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
 
           <your_table_name>:         
       ```
-For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference")
+For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference").
 
 ## VI. Setup Extractor Configuration
 
@@ -209,4 +209,4 @@ In real-time replication, for accurate computation of latency, you must create a
         catalog: tpch
         interval-ms: 10000
     ```
-For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference")
+For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference").

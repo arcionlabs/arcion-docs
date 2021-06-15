@@ -140,7 +140,7 @@ Blitzz Replicant supports two mechanisms for accessing the Cassandra CDC log fil
             allow: ["your_column_name"]
             conditions: "your_condition"         
       ```
-For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference")
+For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference").
 
 ## III. Setup Extractor Configuration
 
@@ -178,7 +178,7 @@ For real-time replication, you must create a heartbeat table in the source Casan
         table-name [20.09.14.3]: replicate_io_cdc_heartbeat #Heartbeat table name if changed
         column-name [20.10.07.9]: timestamp #Heartbeat table column name if changed
     ```    
-For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference")
+For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference").
 
 ## Limitations
 

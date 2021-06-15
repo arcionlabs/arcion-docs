@@ -4,15 +4,16 @@ weight: 6
 ---
 # Destination Cassandra
 
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
+
 ## I. Setup Connection Configuration
 
-1. From ```HOME```, navigate to the sample connection configuration file
+1. From `$REPLICANT_HOME`, navigate to the sample connection configuration file:
     ```BASH
     vi conf/conn/cassandra.yaml
     ```
 
 2. Make the necessary changes as follows:
-
     ```YAML
     type: CASSANDRA
 
@@ -47,13 +48,12 @@ weight: 6
 
 If you want to change the table definitions in destination Cassandra, change the applier configurations with the proceeding steps:  
 
-1. From ```HOME```, navigate to the Applier Configuration File:
-   ```BASH
+1. From `$REPLICANT_HOME`, navigate to the Applier Configuration File:
+    ```BASH
     vi conf/dst/cassandra.yaml
     ```
 
 2. Make the necessary changes as follows:
-
     ```YAML
     snapshot:
       threads: 32 #Specify the maximum number of threads Replicant should use for writing to the target
@@ -75,5 +75,5 @@ If you want to change the table definitions in destination Cassandra, change the
 
         #For versions 20.09.14.3 and beyond
         native-load-configs: #Specify the user-provided LOAD configuration string which will be appended to the s3 specific LOAD SQL command
-
     ```
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 

@@ -4,9 +4,11 @@ weight: 11
 ---
 # Destination Kafka
 
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
+
 ## I. Setup Connection Configuration
 
-1. From ```HOME```, navigate to the sample connection configuration file
+1. From `$REPLICANT_HOME`, navigate to the sample connection configuration file:
     ```BASH
     vi conf/conn/cassandra.yaml
     ```
@@ -44,7 +46,7 @@ weight: 11
 
 ## II. Setup Applier Configuration    
 
-1. Navigate to the Applier Configuration File:
+1. From `$REPLICANT_HOME`, navigate to the Applier Configuration File:
    ```BASH
    vi conf/dst/kafka.yaml
    ```
@@ -79,3 +81,4 @@ weight: 11
     #       shard-key: custkey
     #       num-shards: 16
     ```
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 

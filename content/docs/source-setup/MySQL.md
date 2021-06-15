@@ -17,12 +17,12 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
 
 ## II. Enable binlogging in MySQL server
 
-1. Edit MySQL config file var/lib/my.cnf (create the file if does not exist) and add below lines
+1. Edit MySQL config file var/lib/my.cnf (create the file if does not exist) and add the lines shown below:
     ```SHELL
     [mysqld]
     log-bin=mysql-log.bin
     ```
-2. Export `$MYSQL_HOME` path
+2. Export `$MYSQL_HOME` path:
     ```SQL
     export MYSQL_HOME=/var/lib/mysql
     ```
@@ -30,7 +30,7 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
     ```BASH
     sudo systemctl restart mysql
     ```
-4. Verify if binlogging is turned on
+4. Verify if binlogging is turned on:
     ```BASH
     mysql -u root -p
     ```
@@ -49,7 +49,7 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
     +---------------------------------+--------------------------------+
     7 rows in set (0.011 sec)
     ```
-5. Set binglog format
+5. Set binglog format:
     ```BASH
     mysql -u root -p
     ```
@@ -58,20 +58,20 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
     ```
 
 ## III. Setup MySQL User for Replicant
-1.	Create MySQL user
+1.	Create MySQL user:
     ```SQL
     CREATE USER 'username'@'replicate_host' IDENTIFIED BY 'password';
     ```
-2.	Grant below privileges on all tables involved in replication
+2.	Grant below privileges on all tables involved in replication:
     ```SQL
     GRANT SELECT ON "<user_database>"."<table_name>" TO 'username'@'replicate_host';
     ```
-3.	Grant the following Replication privileges
+3.	Grant the following Replication privileges:
     ```SQL
     GRANT REPLICATION CLIENT ON *.* TO 'username'@'replicate_host';
     GRANT REPLICATION SLAVE ON *.* TO 'username'@'replicate_host';
     ```
-4.	Verify if created user can access bin logs
+4.	Verify if created user can access bin logs:
     ```SQL
     mysql> show binary logs;
     +------------------+-----------+
@@ -87,7 +87,7 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
 
 ## IV. Setup Connection Configuration
 
-1. From ```$REPLICANT_HOME```, navigate to the connection configuration file
+1. From ```$REPLICANT_HOME```, navigate to the connection configuration file:
     ```BASH
     vi conf/conn/mysql_src.yaml
     ```
@@ -108,12 +108,12 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
 
 ## V. Setup Filter Configuration
 
-1. From ```$REPLICANT_HOME```, navigate to the filter configuration file
+1. From ```$REPLICANT_HOME```, navigate to the filter configuration file:
     ```BASH
     vi filter/mysql_filter.yaml
     ```
 
-2. In accordance to you replication needs, specify the data which is to be replicated. Use the format of the example explained below.  
+2. In accordance to you replication needs, specify the data which is to be replicated. Use the format of the example explained below:  
 
     ```yaml
     allow:
@@ -155,13 +155,13 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
 
         <your_table_name>:
     ```
-For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference")
+For a detailed explanation of configuration parameters in the filter file, read: [Filter Reference]({{< ref "/docs/references/filter-reference" >}} "Filter Reference").
 
 ## VI. Setup Extractor Configuration
 
 For real-time replication, you must create a heartbeat table in the source MySQL
 
-1. Create a heartbeat table in the catalog/schema you are going to replicate with the following DDL
+1. Create a heartbeat table in the catalog/schema you are going to replicate with the following DDL:
    ```SQL
    CREATE TABLE "<user_database>"."replicate_io_cdc_heartbeat"(
      "timestamp" BIGINT NOT NULL,
@@ -170,7 +170,7 @@ For real-time replication, you must create a heartbeat table in the source MySQL
 
 2. Grant ```INSERT```, ```UPDATE```, and ```DELETE``` privileges for the heartbeat table to the user configured for replication
 
-3. From ```$REPLICANT_HOME```, navigate to the extractor configuration file
+3. From ```$REPLICANT_HOME```, navigate to the extractor configuration file:
    ```BASH
    vi conf/src/mysql.yaml
    ```
@@ -207,4 +207,4 @@ For real-time replication, you must create a heartbeat table in the source MySQL
         catalog: tpch
         interval-ms: 10000
     ```
-For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference")
+For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference").

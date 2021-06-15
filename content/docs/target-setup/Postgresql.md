@@ -4,9 +4,11 @@ weight: 5
 ---
 # Destination PostgreSQL
 
+The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` directory.
+
 ## I. Setup Connection Configuration
 
-1. From Replicant's ```Home``` directory, navigate to the sample postgreSQL connection configuration file
+1. From `$REPLICANT_HOME`, navigate to the sample postgreSQL connection configuration file:
     ```BASH
     vi conf/conn/postgresql.yaml
     ```
@@ -35,7 +37,7 @@ weight: 5
 
 ## II. Setup Applier Configuration
 
-1. Navigate to the PostGreSql sample applier configuration file
+1. From `$REPLICANT_HOME`, navigate to the PostGreSql sample applier configuration file:
     ```BASH
     vi conf/dst/postgresql.yaml    
     ```
@@ -53,3 +55,4 @@ weight: 5
        #For versions 20.09.14.3 and beyond
        native-load-configs: #Specify the user-provided LOAD configuration string which will be appended to the s3 specific LOAD SQL command
     ```
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 
