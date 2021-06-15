@@ -38,10 +38,10 @@ bookHidden: false
 
 
 ## II. Setup PostgreSQL for Replication
-  1. Edit postgresql.conf
-     ```BASH
-     vi $PGDATA/postgresql.conf
-     ```
+1. Edit postgresql.conf
+   ```BASH
+   vi $PGDATA/postgresql.conf
+   ```
 
 2. Change the parameters below as follows:
     ```Xorg
@@ -77,9 +77,9 @@ bookHidden: false
         ```
 
 4. Set the replicant identity to FULL for the tables  part of the replication process that do no have a primary key
-        ```SQL
-        ALTER TABLE <table_name> REPLICA IDENTITY FULL;
-        ```
+   ```SQL
+   ALTER TABLE <table_name> REPLICA IDENTITY FULL;
+   ```
 
 <br></br>
 
@@ -168,28 +168,29 @@ bookHidden: false
 
         RETURNS: #All columns in the table PART will be replicated without any predicates
         ```
+        Below is the filter file template you must follow:  
 
-The following is a template of the format you must follow:
-  ```YAML
-  allow:
-    catalog: <your_catalog_name>
-    schema: <your_schema_name>
-    types: <your_object_type>
+        ```YAML
+        allow:
+          catalog: <your_catalog_name>
+          schema: <your_schema_name>
+          types: <your_object_type>
 
-  #If not collections are specified, all the data tables in the provided catalog and schema will be replicated
-  allow:
-    <your_table_name>:
-      allow: ["your_column_name"] #if necessary
-      condtions: "your_condition" #if necessary
+        #If not collections are specified, all the data tables in the provided catalog and schema will be replicated
+        allow:
+          <your_table_name>:
+            allow: ["your_column_name"] #if necessary
+            condtions: "your_condition" #if necessary
 
-    <your_table_name>:  
-      allow: ["your_column_name"] #if necessary
-      conditions: "your_condition" #if necessary
+          <your_table_name>:  
+            allow: ["your_column_name"] #if necessary
+            conditions: "your_condition" #if necessary
 
-    <your_table_name>:
-      allow: ["your_column_name"] #if necessary
-      conditions: "your_condition" #if necessary          
-  ```
+          <your_table_name>:
+            allow: ["your_column_name"] #if necessary
+            conditions: "your_condition" #if necessary    
+
+        ```
 
 
 ## V. Setup Extractor Configuration
@@ -197,16 +198,16 @@ The following is a template of the format you must follow:
 For real-time replication, you must create a heartbeat table in the source PostgreSQL
 
 1. Create a heartbeat table in any schema of the database you are going to replicate with the following DDL
-   ```SQL
-   CREATE TABLE "<user_database>"."public"."replicate_io_cdc_heartbeat"("timestamp" INT8 NOT NULL, PRIMARY KEY("timestamp"))
-   ```
+    ```SQL
+    CREATE TABLE "<user_database>"."public"."replicate_io_cdc_heartbeat"("timestamp" INT8 NOT NULL, PRIMARY  KEY("timestamp"))
+    ```
 
 2. Grant ```INSERT```, ```UPDATE```, and ```DELETE``` privileges to the user configured for replication
 
 3. Navigate to the extractor configurations
-   ```BASH
-   vi conf/src/postgresql.yaml
-   ```
+    ```BASH
+    vi conf/src/postgresql.yaml
+    ```
 4. Under the Realtime Section, make the necessary changes as follows
      ```YAML
      realtime:
@@ -231,25 +232,26 @@ Note: It is strongly recommended to supply a row-identifier-key in the per-table
   vi/conf/src/postgresql_delta.yaml
   ```
 2. Under the delta snapshot section, make the necessary changes as follows:
-  ```YAML
-  delta-snapshot:
-    row-identifier-key: [orderkey,suppkey] #Replace orderkey, suppkey with your  global row-identifier-key identifier which specifies the column(s) that are unique in the data collections being replicated
-    update-key: [partkey] #Replace partkey with your global update key if your table does not have unique row-identifier-keys and you still want to perform incremental replication
-    replicate-deletes: true|false #Enable or disable delete replication
+     ```YAML
+      delta-snapshot:
+        row-identifier-key: [orderkey,suppkey] #Replace orderkey, suppkey with your  global row-identifier-key identifier which specifies the column(s) that are unique in the data collections being replicated
+        update-key: [partkey] #Replace partkey with your global update key if your table does not have unique row-identifier-keys and you still want to perform incremental replication
+        replicate-deletes: true|false #Enable or disable delete replication
 
-    #In the following section, you can specify configurations for certain tables. For any specified tables, Replicant will override the global configurations and replicate the table in accordance to the configurations set for that table below.
-    per-table-config:
-    - catalog: tpch #Replace tpch with the catalog of the table is in
-      schema: public #Replace public with the schema the table is in
-      tables:
-        <table_name>: #Replace <table_name> with your table name
-          row-key-identifier: #Enter a row-key-identifier for this table if applicable
-          update-key: #Enter an update-key for this table if applicable
-          replicate-deletes: #Enable or disable  delete replication  
+        #In the following section, you can specify configurations for certain tables. For any specified tables, Replicant will override the global configurations and replicate the table in accordance to the configurations set for that table below.
+        per-table-config:
+        - catalog: tpch #Replace tpch with the catalog of the table is in
+          schema: public #Replace public with the schema the table is in
+          tables:
+            <table_name>: #Replace <table_name> with your table name
+              row-key-identifier: #Enter a row-key-identifier for this table if applicable
+              update-key: #Enter an update-key for this table if applicable
+              replicate-deletes: #Enable or disable  delete replication  
 
-        #The following is an example of a specified table named lineitem1. Replicant will use the configurations provided for lineitem1 when replicating the table instead of the global configurations specifed above the per-table-config section.
-        lineitem1:
-          row-identifier-key: [l_orderkey, l_linenumber]
-          split-key: l_orderkey
-          replicate-deletes: false
-  ```
+            #The following is an example of a specified table named lineitem1. Replicant will use the configurations provided for lineitem1 when replicating the table instead of the global configurations specifed above the per-table-config section.
+            lineitem1:
+              row-identifier-key: [l_orderkey, l_linenumber]
+              split-key: l_orderkey
+              replicate-deletes: false
+       ```
+For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference")

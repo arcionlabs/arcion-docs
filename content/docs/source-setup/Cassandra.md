@@ -176,7 +176,9 @@ For real-time replication, you must create a heartbeat table in the source Casan
         enable: true
         table-name [20.09.14.3]: replicate_io_cdc_heartbeat #Heartbeat table name if changed
         column-name [20.10.07.9]: timestamp #Heartbeat table column name if changed
-    ```
+    ```    
+For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference")
+
 ## Limitations
 
 The following limitations will apply when replicating from Casandra as a source:
