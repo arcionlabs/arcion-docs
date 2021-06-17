@@ -241,7 +241,6 @@ For real-time replication, you must create a heartbeat table in the source Postg
       threads: 4
       fetch-size-rows: 10000
       fetch-duration-per-extractor-slot-s: 3
-      _traceDBTasks: true
 
       heartbeat:
         enable: true

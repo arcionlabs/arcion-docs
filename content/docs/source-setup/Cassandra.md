@@ -193,8 +193,6 @@ For real-time replication, you must create a heartbeat table in the source Casan
           #null-string: "NULL"
           #line-end: "\n"
 
-      _traceDBTasks : true
-
       per-table-config:
       - schema: tpch
         tables:
