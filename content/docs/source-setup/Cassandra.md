@@ -177,7 +177,35 @@ For real-time replication, you must create a heartbeat table in the source Casan
         enable: true
         table-name [20.09.14.3]: replicate_io_cdc_heartbeat #Heartbeat table name if changed
         column-name [20.10.07.9]: timestamp #Heartbeat table column name if changed
-    ```    
+    ```   
+
+  5. Below is a sample extractor file with commonly used parameters:
+    ```YAML
+    snapshot:
+      threads: 32
+    #  fetch-size-rows: 5_000
+
+      #native-extract-options:
+        #control-chars:
+          #delimiter: ','
+          #quote: '"'
+          #escape: "\u0000"
+          #null-string: "NULL"
+          #line-end: "\n"
+
+      _traceDBTasks : true
+
+      per-table-config:
+      - schema: tpch
+        tables:
+          orders:
+    #        num-jobs: 2
+    #        extraction-method: CSVLOAD   
+
+    realtime:
+      fetch-interval-s: 2
+    ```
+
 For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference").
 
 ## Limitations

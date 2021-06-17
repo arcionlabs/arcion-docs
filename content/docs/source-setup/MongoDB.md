@@ -112,4 +112,50 @@ For real-time replication, you must create a heartbeat table in the source Mongo
         table-name [20.09.14.3]: replicate_io_cdc_heartbeat #Replace replicate_io_cdc_heartbeat with your heartbeat table's name if applicable
         column-name [20.10.07.9]: timestamp #Replace timestamp with your heartbeat table's column name if applicable
     ```
+
+5. Below is a sample extractor file with commonly used parameters:
+    ```YAML
+    snapshot:
+      threads: 16
+      fetch-size-rows: 5000
+
+      split-key: _id
+
+      normalize:
+        enable: true
+        de-duplicate: false
+    #     extract-upto-depth: 2
+      per-table-config:
+      - schema: tpch
+        tables:
+          lineitem:
+            split-key: field1
+            normalize:
+              de-duplicate: false
+              extract-upto-depth: 3
+              extraction-priority: 2  
+
+    realtime:
+      threads: 4
+      fetch-size-rows: 10000
+       heartbeat:
+         enable: false
+         schema: io_replicate
+
+      replicate-ddl: true      #use for replicaSet only, not for sharded cluster
+
+    #   start-position:
+    #     increment: 1
+
+      normalize:
+        enable: true
+    #     extract-upto-depth: 2
+    #   per-table-config:
+    #   - schema: tpch
+    #     tables:
+    #       lineitem:
+    #         normalize:
+    #           extract-upto-depth: 3
+
+    ```
 For a detailed explanation of configuration parameters in the extractor file, read: [Extractor Reference]({{< ref "/docs/references/extractor-reference" >}} "Extractor Reference").

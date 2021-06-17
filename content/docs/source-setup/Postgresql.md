@@ -219,7 +219,36 @@ For real-time replication, you must create a heartbeat table in the source Postg
          table-name [20.09.14.3]: replicate_io_cdc_heartbeat #Heartbeat table name if changed
          column-name [20.10.07.9]: timestamp #Heartbeat table column name if changed
      ```
+5. Below is a sample extractor file with commonly used paramters:
+    ```YAML
+    snapshot:
+      threads: 16
+      fetch-size-rows: 5_000
 
+      per-table-config:
+      - catalog: tpch
+        schema: public
+        tables:
+          lineitem:
+            row-identifier-key: [l_orderkey, l_linenumber]
+            split-key: l_orderkey
+    #        split-hints:
+    #          row-count-estimate: 15000
+    #          split-key-min-value: 1
+    #          split-key-max-value: 60_000
+
+    realtime:
+      threads: 4
+      fetch-size-rows: 10000
+      fetch-duration-per-extractor-slot-s: 3
+      _traceDBTasks: true
+
+      heartbeat:
+        enable: true
+        catalog: tpch
+        schema: public
+        interval-ms: 10000
+    ```
 
 
 ## VI. Setup PostgreSQL Delta-snapshot if Necessary
