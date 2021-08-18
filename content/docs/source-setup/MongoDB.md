@@ -142,7 +142,7 @@ For real-time replication, you must create a heartbeat table in the source Mongo
          enable: false
          schema: io_replicate
 
-      replicate-ddl: true      #use for replicaSet only, not for sharded cluster
+      replicate-ddl: true     #use for replicaSet only, not for sharded cluster
 
     #   start-position:
     #     increment: 1

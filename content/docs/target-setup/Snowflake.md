@@ -55,4 +55,26 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
       retry-wait-duration-ms: 5000 #Specify the time in milliseconds Replicant should wait before re-trying a failed operation
       cdc-stage-type: FILE #Enter your cdc-stage-type
     ```
-For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 
+3. Below is a sample applier file with commonly used parameters:
+   ```YAML
+   snapshot:
+     threads: 16
+
+     batch-size-rows: 100_000
+     txn-size-rows: 1_000_000
+
+     bulk-load:
+       enable: true
+       type: FILE
+       save-file-on-error: true
+
+   realtime:
+     threads: 8
+     batch-size-rows: 50_000
+     txn-size-rows: 100_000
+     max-retries-per-op: 30
+     retry-wait-duration-ms: 5000
+     cdc-stage-type: FILE
+     skip-tables-on-failures : true
+   ```
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference").

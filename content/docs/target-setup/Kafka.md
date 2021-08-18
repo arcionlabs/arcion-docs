@@ -81,4 +81,38 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
     #       shard-key: custkey
     #       num-shards: 16
     ```
-For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 
+3. Below is a sample applier file with commonly used parameters:
+    ```YAML
+    snapshot:
+     threads: 16
+
+    # txn-size-rows: 10000
+    # replication-factor: 1
+    # schema-dictionary: SCHEMA_DUMP  # Allowed values: POJO | SCHEMA_DUMP| NONE
+    # kafka-compression-type: lz4
+    # kafka-batch-size-in-bytes: 100000
+    # kafka-buffer-memory-size-in-bytes: 67108864
+    # kafka-linger-ms: 10
+
+    realtime:
+     txn-size-rows: 1000
+     before-image-format: ALL  # Allowed values : KEY, ALL
+     after-image-format: ALL   # Allowed values : UPDATED, ALL
+    # shard-key: id
+    # num-shards: 1
+    # shard-function: MOD # Allowed values: MOD, NONE. NONE means storage will use its default sharding
+
+    # per-table-config:
+    # - tables:
+    #     io_blitzz_nation:
+    #       shard-key: id
+    #       num-shards: 16 #default: 1
+    #       shard-function: NONE
+    #     io_blitzz_region:
+    #       shard-key: id
+    #     io_blitzz_customer:
+    #       shard-key: custkey
+    #       num-shards: 16
+    ```
+
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference").

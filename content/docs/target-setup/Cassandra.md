@@ -76,4 +76,27 @@ If you want to change the table definitions in destination Cassandra, change the
         #For versions 20.09.14.3 and beyond
         native-load-configs: #Specify the user-provided LOAD configuration string which will be appended to the s3 specific LOAD SQL command
     ```
+
+3. Below is a sample applier file with commonly used parameters:
+    ```YAML
+    snapshot:
+      threads: 32
+
+      batch-size-rows: 100
+      transaction-size-rows: 1_000_000
+      skip-tables-on-failures : true
+      _traceDBTasks: true
+
+      keyspaces:
+        tpch:
+          replication-property: "{'class' : 'SimpleStrategy' , 'replication_factor' : 1}"
+          durable-writes: true
+
+      bulk-load:
+        enable: true #Enable bulk-load only if cqlsh is installed on the machine.
+        type: FILE
+
+    realtime:
+      batch-size-rows: 100
+    ```
 For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference").

@@ -77,4 +77,29 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
     #   max-files-per-bulk-load: 1
     #   serialize: false
     ```
-For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 
+  3. Below is a sample applier file with commonly used parameters:
+    ```YAML
+    snapshot:
+     threads: 16
+
+     batch-size-rows: 5_000
+     txn-size-rows: 1_000_000
+     bulk-load:
+       enable: true
+       type: FILE   # PIPE, FILE
+       method: IMPORT # COPY, IMPORT
+       max-files-per-bulk-load: 10
+       node-id: 1
+       serialize: true
+       serialize-stage-upload: false
+
+     _traceDBTasks: true
+      use-quoted-identifiers: false
+
+    realtime:
+     batch-size-rows: 128
+     txn-size-rows: 512
+     use-quoted-identifiers: false
+    ```
+
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference").

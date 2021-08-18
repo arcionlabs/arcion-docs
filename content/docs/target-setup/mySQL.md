@@ -45,4 +45,29 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
         #For versions 20.09.14.3 and beyond
         native-load-configs: #Specify the user-provided LOAD configuration string which will be appended to the s3 specific LOAD SQL command
     ```
-For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 
+3. Below is a sample applier file with commonly used parameters:
+    ```YAML
+    snapshot:
+      threads: 32
+      batch-size-rows: 10_000
+      txn-size-rows: 1_000_000
+
+      bulk-load:
+        enable: true
+        type: FILE
+
+      skip-tables-on-failures : true
+      _traceDBTasks: true
+      handle-failed-opers: true
+
+      user-role:
+        init-user-roles: true
+
+    realtime:
+      threads: 32
+      batch-size-rows: 10_000
+      txn-size-rows: 1_00_000
+      handle-failed-opers: true
+    ```
+
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference").

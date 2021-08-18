@@ -68,4 +68,34 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
     realtime:
       threads: 4 #Maximum number of threads Replicant should use for writing to the target
     ```
+3. Below is a sample applier file with commonly used parameters:
+    ```YAML
+    snapshot:
+      threads: 16
+
+      batch-size-rows: 100_000
+      txn-size-rows: 1_000_000
+
+      bulk-load:
+        enable: true
+        type: FILE
+        save-file-on-error: true
+        serialize: false
+
+    #  per-table-config:
+    #  - catalog: tpch
+    #    tables:
+    #      region:
+    #        shard-key: [regionkey]
+    #      nation:
+    #        shard-key: [nationkey]
+    #      orders:
+    #        shard-key: [orderskey]
+
+    realtime:
+      threads: 16
+      txn-size-rows: 10000
+      #_traceDBTasks: true
+    ```
+
 For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference")

@@ -77,4 +77,35 @@ Replicant supports creating/loading tables at the partition and subpartition lev
        serialize: true/false. #If the files generated should be applied in serial/parallel fashion
        method : EXTERNAL_TABLE|SQL_LOADER. #Either external table based approach or sql loader based approach can be taken to perform bulk load.
    ```
-For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference"). 
+3. Below is a sample applier file with commonly used parameters:
+   ```YAML
+   snapshot:
+     threads: 16
+
+     batch-size-rows: 100_000
+     txn-size-rows: 1_000_000
+
+     init-views-as-views: false
+     init-views-post-snapshot: true
+
+     bulk-load:
+       enable: true
+       type: FILE
+       save-file-on-error: true
+       serialize: false
+
+     user-role:
+       init-user-roles: true
+
+     enable-partition-load: true #true by default only if source type is oracle
+     disable-partition-wise-load-on-failure: false
+
+   realtime:
+     threads: 16
+     txn-size-rows: 10000
+     batch-size-rows: 1000
+   ```
+
+
+
+For a detailed explanation of configuration parameters in the applier file, read: [Applier Reference]({{< ref "/docs/references/applier-reference" >}} "Applier Reference").
