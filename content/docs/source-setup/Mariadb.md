@@ -101,7 +101,7 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
     port: 3306 #Replace 3306 with the port number to connect to your MariaDB server
 
     username: "replicant" #Replace replicant with your username that connects to your MariaDB server
-    password: "Replicant#123" #Replace Replicant#123 with the your user's password
+    password: "Replicant#123" #Replace Replicant#123 with your user's password
 
     slave-server-ids: [1]
     max-connections: 30 #Maximum number of connections replicant can open in MariaDB
@@ -160,7 +160,7 @@ For a detailed explanation of configuration parameters in the filter file, read:
 
 ## VI. Setup Extractor Configuration
 
-In real-time replication, for accurate computation of latency, you must create a heartbeat table in the source MariaDB.
+In real-time replication, you must create a heartbeat table in the source MariaDB.
 
 1. Create a heartbeat table in the catalog/schema you are going to replicate with the following DDL:
    ```SQL
