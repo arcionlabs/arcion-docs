@@ -7,6 +7,7 @@ url: docs/references/okta-setup
 ---
 
 # Set up Okta as an authentication provider
+Self-hosted Replicant supports Okta as an authentication provider.
 
 ## Requirements
 - A valid Okta account
@@ -17,23 +18,24 @@ url: docs/references/okta-setup
 
 1. Log into your Okta account
 2. In the Admin Console, go to **Applications > Applications** .
-3. Click Create App Integration.
+3. Click **Create App Integration**.
 4. Select **OIDC - OpenID Connect** as the **Sign-in method**.
 5. Select **Single-Page Application** as the **Application type**.
 6. The **New Single-Page App Integration** window appears.
-  i. Select both **Authorization Code** and **Refresh Token** as the **Grant type**s. The login process requires **Authorization Code** and the re-authentication mechanism requires **Refresh Token**. 
-  ii. Enter `http://localhost:8080/auth-callback/` in the **Sign-in redirect URIs** box. We run the container on our local machine without any additional setup. Since the port maps to 8080, the base URL becomes `http://localhost:8080` and the complete **Sign-in redirect URI** becomes `http://localhost:8080/auth-callback/`. 
-  iii. In the **Sign-out redirect URIs** box, enter the base URL. In this case, it's `http://localhost:8080/`. 
-  iv. For **Assignments**, select **Allow everyone in your organization to access** . Keep in mind that you can set up user assignments in any way that allows the configured application to authenticate users.
+
+    a. Select both **Authorization Code** and **Refresh Token** as the **Grant type**s. The login process requires **Authorization Code** and the re-authentication mechanism requires **Refresh Token**.
+
+    b. Enter `http://localhost:8080/auth-callback/` in the **Sign-in redirect URIs** box. We run the container on our local machine without any additional setup. Since the port maps to 8080, the base URL becomes `http://localhost:8080` and the complete **Sign-in redirect URI** becomes `http://localhost:8080/auth-callback/`. 
+
+    c. In the **Sign-out redirect URIs** box, enter the base URL. In this case, it's `http://localhost:8080/`. 
+    
+    d. For **Assignments**, select **Allow everyone in your organization to access** . Keep in mind that you can set up user assignments in any way that allows the configured application to authenticate users.
 
 After creating the app integration connection, a window appears with all the details of your application. The **Client Credentials** section contains your application's **Client ID**. This works as your app's public identifier and required by all OAuth flows. Therefore, make sure to save the client ID for later.
 
 
 ## Configure self-hosted container to authenticate against Okta
-
-A Docker-compose file which spins up a PostgreSQL container and a Replicant-on-premises container can be found below. Please note that the
-configuration below is invalid and specific variables for your setup should be assigned to the docker compose file. A 
-list of all environment variables relevant for Okta integration is available below the Docker-compose file contents.
+The following Docker compose file spins up a PostgreSQL container and a Replicant on-premises container. Make sure to enter the corresponding credentials and variables for your setup into the Compose file before you use it.
 
 ```YAML
 version: '3.8'
@@ -80,25 +82,26 @@ services:
 networks:
   Replicant:
 ```
-## Environment variables
+
+### Environment variables
+In the preceding Compose file, notice the following environment variables:
 
 - `ARCION_LICENSE` specifies the base64 encoded Replicant license.
 - `AUTHENTICATION_TYPE` specifies the authentication protocol. Since we're using OIDC/OAuth2 as our authentication protocol, set this parameter to `OAUTH2`.
 - `CLIENT_ID` specifies the client id of the corresponding Okta application you create in the [Create an Okta Application](#create-an-okta-application) section.
 
-#### Okta URIs
-
-You can find Okta URIs in the OIDC Discovery configuration file. Default location for this file takes the form `https://YOUR_Okta_DOMAIN/.well-known/openid-configuration`,
+The preceding Compose file also uses variables for Okta URIs. You can find Okta URIs in the OIDC Discovery configuration file. The location of this file defaults to `https://YOUR_Okta_DOMAIN/.well-known/openid-configuration`,
 where `YOUR_Okta_DOMAIN` represents [your Okta domain](https://developer.okta.com/docs/guides/find-your-domain/main/#find-your-okta-domain). 
 
+The Compose file uses the following URI variables:
+
+- **`ISSUER_URI`**. The URI of the authentication issuer (`https://YOUR_Okta_DOMAIN`).
+- **`USER_INFO_URI`**. The URI for checking token validity (`https://YOUR_Okta_DOMAIN/oauth2/v1/userinfo`).
+- **`AUTHORIZATION_URI`**. The URI for exchanging authorization codes (`https://YOUR_Okta_DOMAIN/oauth2/v1/authorize`).
+
 For more information on OIDC Discovery, see [OpenID Connect & OAuth 2.0 API](https://developer.okta.com/docs/reference/api/oidc/#well-known-openid-configuration).
-`ISSUER_URI` specifies URI of the authentication issuer (https://YOUR_Okta_DOMAIN)</br>
-`USER_INFO_URI` specifies URI used to check token validity (https://YOUR_Okta_DOMAIN/oauth2/v1/userinfo)</br>
-`AUTHORIZATION_URI` specifies URI used to exchange authorization codes (https://YOUR_Okta_DOMAIN/oauth2/v1/authorize)</br>
 
-
-#### OAuth2 scopes
-
+### OAuth2 scopes
 Client registration requires the following scopes:
 - `offline_access`
 - `openid`
