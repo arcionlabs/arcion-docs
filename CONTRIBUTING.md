@@ -14,6 +14,8 @@ Read through this page before submitting any pull request.
     - [Use Markdown](#use-markdown)
     - [Add images (optional)](#add-images-optional)
     - [Write with the Arcion developer documentation style guide in mind](#write-with-the-arcion-developer-documentation-style-guide-in-mind)
+- [Tools Setup](#tools-setup)
+    - [Linux](#linux)
 
 
 ## Prerequisites
@@ -24,17 +26,17 @@ Read through this page before submitting any pull request.
 
     b. Add the key to your OpenSSH authentication agent.
     
-    c. Add the public key file to your GitHub accountl
+    c. Add the public key file to your GitHub account.
 		
 See [The GitHub docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) for instructions on how to perform these steps.
 
 ## Suggested workflow for edits
-The GitHub editing interface works well for quick edits. However, we recommend that you use a code editor and a local copy of your fork of this reporsitory for more complex edits or edits involving multiple files.
+The GitHub editing interface works well for quick edits. However, we recommend that you use a code editor and a local copy of your fork of this repository for more complex edits or edits involving multiple files.
 
 Follow these steps to perform complex edits on multiple files:
 
 1.  Log in to your GitHub account and navigate to this repository.
-2.  Select **Fork** ito create a fork of the repo.
+2.  Select **Fork** to create a fork of the repo's `dev` branch.
 3.  Open your fork. The fork now exists under your username (`<your_username>/arcion-docs`).
 4.  Clone the repository to your machine using HTTPS or SSH.
 5.  Create a branch and checkout into that branch.
@@ -127,3 +129,29 @@ To add an image, follow these steps:
 
 ### Write with the Arcion developer documentation style guide in mind
 Follow the [Arcion developer documentation style guide](docs-style-guide.md) while you work on your documentation edits.
+
+# Tools Setup
+
+This section helps you set up the tools you'll need to write the docs.
+
+### Linux
+
+These instructions assume that you use `ubuntu`. If you use other distributions of Linux, please make appropriate adjustments.
+
+- Install Hugo
+
+  ```bash
+  sudo apt-get install hugo
+  ```
+
+- Start Hugo
+
+  ```bash
+  hugo server --config config-dev.toml
+  ```
+
+- View Locally
+
+  Follow the instructions to view the docs locally by pointing your browser to [http://localhost:1313/](http://localhost:1313/)
+
+
