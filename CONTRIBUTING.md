@@ -14,8 +14,8 @@ Read through this page before submitting any pull request.
     - [Use Markdown](#use-markdown)
     - [Add images (optional)](#add-images-optional)
     - [Write with the Arcion developer documentation style guide in mind](#write-with-the-arcion-developer-documentation-style-guide-in-mind)
-- [Tools Setup](#tools-setup)
-    - [Linux](#linux)
+- [Set up Hugo](#set-up-hugo)
+  - [Linux](#linux)
 
 
 ## Prerequisites
@@ -130,28 +130,49 @@ To add an image, follow these steps:
 ### Write with the Arcion developer documentation style guide in mind
 Follow the [Arcion developer documentation style guide](docs-style-guide.md) while you work on your documentation edits.
 
-# Tools Setup
+# Set up Hugo
 
-This section helps you set up the tools you'll need to write the docs.
+This section helps you set up Hugo on your machine so that you can run the website and verify your changes locally.
 
-### Linux
 
-These instructions assume that you use `ubuntu`. If you use other distributions of Linux, please make appropriate adjustments.
+## Linux
 
-- Install Hugo
+These instructions apply to Ubuntu 22.04 and higher.
+For other Linux distributions, see the [Hugo Linux installation docs](https://gohugo.io/installation/linux/).
+
+
+1. Install Hugo using apt-get:
+  
+  Arcion docs theme requires Hugo extended, with version 0.79 or higher.
+  Not all releases of Ubuntu repositories provide such newer versions. 
+  For these cases, the recommended approach to install Hugo is to grab the appropriate prebuilt binary from the Hugo releases page. 
+  
 
   ```bash
   sudo apt-get install hugo
+
+  hugo version
+  hugo v0.92.2+extended linux/amd64 BuildDate=2023-01-31T11:11:57Z VendorInfo=ubuntu:0.92.2-1ubuntu0.1
   ```
 
-- Start Hugo
+2. Go inside your arcion-docs repository:
+
+  ```bash
+  cd arcion-docs/
+  ``````
+
+3. Start Hugo server:
 
   ```bash
   hugo server --config config-dev.toml
   ```
 
-- View Locally
+4. View Locally
 
-  Follow the instructions to view the docs locally by pointing your browser to [http://localhost:1313/](http://localhost:1313/)
+  Hugo server builds the website and serves it using an HTTP server.
+  After you run hugo server, it displays the URL of the local build:
 
-
+  ```
+  Web Server is available at //localhost:1313/ (bind address 127.0.0.1)
+  You can make changes while the server is running. The server automatically detects any change you make in website content and and rebuilds the site.
+  ``````
