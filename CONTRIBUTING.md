@@ -155,7 +155,7 @@ For other Linux distributions, see the [Hugo Linux installation docs](https://go
   hugo v0.92.2+extended linux/amd64 BuildDate=2023-01-31T11:11:57Z VendorInfo=ubuntu:0.92.2-1ubuntu0.1
   ```
 
-2. Go inside your arcion-docs repository:
+2. Go inside your `arcion-docs` repository:
 
   ```bash
   cd arcion-docs/
@@ -169,10 +169,11 @@ For other Linux distributions, see the [Hugo Linux installation docs](https://go
 
 4. View Locally
 
-  Hugo server builds the website and serves it using an HTTP server.
+  `hugo server` builds the website and serves it using an HTTP server.
   After you run hugo server, it displays the URL of the local build:
 
   ```
   Web Server is available at //localhost:1313/ (bind address 127.0.0.1)
-  You can make changes while the server is running. The server automatically detects any change you make in website content and and rebuilds the site.
   ``````
+
+  You can make changes while the server is running. The server automatically detects any change you make in website content and and rebuilds the site.
