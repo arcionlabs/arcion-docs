@@ -141,7 +141,7 @@ These instructions apply to Ubuntu 22.04 and higher.
 For other Linux distributions, see the [Hugo Linux installation docs](https://gohugo.io/installation/linux/).
 
 
-1. Install Hugo using apt-get:
+1. Install Hugo using `apt-get`:
   
   Arcion docs theme requires Hugo extended, with version 0.79 or higher.
   Not all releases of Ubuntu repositories provide such newer versions. 
