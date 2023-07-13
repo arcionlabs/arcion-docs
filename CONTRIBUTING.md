@@ -145,7 +145,7 @@ For other Linux distributions, see the [Hugo Linux installation docs](https://go
   
   Arcion docs theme requires Hugo extended, with version 0.79 or higher.
   Not all releases of Ubuntu repositories provide such newer versions. 
-  For these cases, the recommended approach to install Hugo is to grab the appropriate prebuilt binary from the Hugo releases page. 
+  For these cases, the recommended approach to install Hugo is to grab the appropriate prebuilt binary from the [Hugo releases page](https://github.com/gohugoio/hugo/releases). 
   
 
   ```bash
