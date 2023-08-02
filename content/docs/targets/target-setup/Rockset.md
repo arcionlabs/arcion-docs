@@ -7,7 +7,7 @@ bookHidden: false
 ---
 
 # Destination Rockset
-Rockset can use Arcion's CDC (Change Data Capture) formats to ingest data from sources like Amazon S3 and Kafka. Arcion-Rockset integration allows you to leverage Arcion's fast CDC capabilities to effectively bring CDC data from source into Rockset.
+Rockset can use Arcion's Change Data Capture (CDC) formats to ingest data from sources like Amazon S3 and Kafka. Arcion-Rockset integration allows you to leverage Arcion's fast CDC capabilities to effectively bring CDC data from source into Rockset.
 
 ## Overview
 Arcion uses [efficient CDC formats]({{< ref "docs/references/cdc-format" >}}) to replicate data from any database to S3 and Kafka. To simplify bringing CDC data into Rockset, Rockset has added support for Arcion CDC formats through [CDC templates](https://rockset.com/docs/cdc/#cdc-transformation-templates). This allows you to quickly move CDC data into Rockset's managed data sources S3 and Kafka.
@@ -35,7 +35,10 @@ The following sample ingests a table whose primary key is `CUSTKEY`:
       _input.after.* 
     FROM _input
     ```
-5. After completing the preceding steps, wait for Rockset to load the collection. Whenever Arcion replicates changes from Oracle to S3, Rockset automatically syncs those changes.
+5. After completing the preceding steps, wait for Rockset to load the collection. Whenever Arcion replicates changes from a source database to S3, Rockset automatically syncs those changes.
+
+### Challenges with S3 sync
+Rockset ingests data from S3 in random order and therefore can't guarantee the transactional consistency. For example, if Arcion uploads three files with the suffixes `_1`, `_2`, `_3`, Rockset can pick any one of these, causing issues. To solve this issue, Rockset prefers ingesting data from Kafka API which guarantees transactional consistency. For more information, see [Considerations in ingesting CDC data](https://rockset.com/docs/cdc/#considerations).
 
 ## Set up Kafka
 Follow these steps to set up and connect existing Kafka cluster to Rockset and use Arcion to start ingesting data:
@@ -85,4 +88,35 @@ Follow these steps to set up and connect existing Kafka cluster to Rockset and u
     FROM _input
     ```
 
+### Supported CDC formats for Kafka
+Arcion supports the following CDC formats for Kafka depending on the replication mode:
 
+{{< tabs "supported-cdc-formats-for-kafka" >}}
+{{< tab "NATIVE CDC format" >}}
+For [`snapshot` mode]({{< ref "docs/running-replicant#replicant-snapshot-mode" >}}), Arcion uses the [NATIVE format]({{< ref "docs/references/cdc-format/native-format" >}}). In this case, you must change the expected query from Rockset while creating a collection for Arcion format. The following shows a sample query:
+
+```SQL
+SELECT ID_HASH(_input.primaryKey1,_input.primaryKey2) AS _id,
+* 
+FROM _input
+```
+{{< /tab >}}
+{{< tab "JSON CDC format" >}}
+For [`realtime` mode]({{< ref "docs/running-replicant#replicant-realtime-mode" >}}), Arcion uses the [JSON CDC format]({{< ref "docs/references/cdc-format/json-cdc-format" >}}). The following shows a sample query for this format:
+
+```SQL
+SELECT
+  -- Rockset special fields (https://rockset.com/docs/special-fields)
+  IF(opType = 'D', 'DELETE', 'UPSERT') AS _op,
+  IF(opType = 'D',
+    ID_HASH(_input.before.CUSTKEY),
+    ID_HASH(_input.after.CUSTKEY)
+  ) AS _id,
+  IF(opType = 'I' AND _input.cursor IS NOT NULL, TIMESTAMP_MILLIS(_input.cursor.timestamp), CURRENT_TIMESTAMP()) AS _event_time,
+  -- Note: pkField1, pkField2 are mapped to _id above. If you don't need
+  -- their raw values, remove them from the * projection below using the EXCEPT clause
+  _input.after.* 
+FROM _input
+```
+{{< /tab >}}
+{{< /tabs >}}
