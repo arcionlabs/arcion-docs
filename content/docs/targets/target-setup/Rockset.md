@@ -19,7 +19,7 @@ Follow these steps to set up S3 as data source in Rockset that uses Arcion CDC f
 2. [Create a collection](https://rockset.com/docs/amazon-s3/#create-a-collection) from S3 source. This involves specifying the S3 path from which Rockset ingests data. Once you specify a path, Rockset shows you a preview of the data in that path.
 3. Select **Arcion** from the **Template** dropdown in the **Ingest SQL Editor** widget. 
 4. Create a custom SQL to ingest data from [Arcion’s S3 format]({{< ref "docs/references/cdc-format/arcion-internal-cdc-format" >}}).
-The following sample ingests a table whose primary key is `CUSTKEY`:
+The following sample ingests a table with the primary key `CUSTKEY`:
 
     ```SQL
     SELECT
