@@ -35,7 +35,7 @@ After creating the app integration connection, a window appears with all the det
 
 
 ## Configure self-hosted container to authenticate against Okta
-The following Docker compose file spins up a PostgreSQL container and a Replicant on-premises container. Make sure to enter the corresponding credentials and variables for your setup into the Compose file before you use it.
+The following Docker compose file spins up a PostgreSQL container and a Replicant on-premise container. Make sure to enter the corresponding credentials and variables for your setup into the Compose file before you use it.
 
 ```YAML
 version: '3.8'
