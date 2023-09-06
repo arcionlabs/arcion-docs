@@ -10,7 +10,7 @@ bookHidden: false
 Rockset can use Arcion's Change Data Capture (CDC) formats to ingest data from sources like Amazon S3 and Kafka. Arcion-Rockset integration allows you to leverage Arcion's fast CDC capabilities to effectively bring CDC data from source into Rockset.
 
 ## Overview
-Arcion uses [efficient CDC formats]({{< ref "docs/references/cdc-format" >}}) to replicate data from any database to S3 and Kafka. To simplify bringing CDC data into Rockset, Rockset has added support for Arcion CDC formats through [CDC templates](https://rockset.com/docs/cdc/#cdc-transformation-templates). This allows you to quickly move CDC data into Rockset's managed data sources S3 and Kafka.
+Arcion uses [efficient CDC formats]({{< ref "docs/references/cdc-format" >}}) to replicate data from any database to S3 and Kafka. To simplify bringing CDC data into Rockset, Rockset has added support for [Arcion CDC formats through CDC templates](https://rockset.com/docs/cdc/#arcion). This allows you to quickly move CDC data into Rockset's managed data sources S3 and Kafka.
 
 ## Set up Amazon S3
 Follow these steps to set up S3 as data source in Rockset that uses Arcion CDC format to ingest data:
@@ -61,7 +61,7 @@ Follow these steps to set up and connect existing Kafka cluster to Rockset and u
    ```
 
 3. Create a new Kafka integration by navigating to **Integrations > Add Integration > Kafka** in the Rockset console. You can add as many topics in the integration as you require.
-4. [Run Arcion Replicant]({{< ref "docs/running-replicant" >}}) to start replicating data from source database to Kafka. If you run Replicant with the `--replace` option, we highly recommend that you _run Replicant first_ since Replicant can try to delete topics and do a fresh start. This causes issue if Rockset has already been reading the topics.
+4. [Run Arcion Replicant]({{< ref "docs/running-replicant" >}}) to start replicating data from source database to Kafka. If you run Replicant with the `--replace` option, we highly recommend that you _run Replicant before step 5_ since Replicant can try to delete topics and do a fresh start. This causes issue if Rockset has already been reading the topics.
 5. Once the snapshot process completes, run the following command in Kafka cluster: 
     ```sh
     ./kafka-3.4.0-src/bin/connect-standalone.sh \
