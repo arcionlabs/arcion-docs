@@ -12,7 +12,7 @@ This page describes how to set up Source Db2 with Kafka and MQ.
 ## Obtain the dependency files
 Arcion Replicant requires the Db2 JDBC driver as a dependency. If you use [IBM MQ to store CDC logs](#configure-cdc-logs-and-monitoring), you must also obtain the MQ Java client files. 
 
-Click the following buttons to download the appropriate versions of the JDBC and client files. After downloading, put the JAR files inside the `lib/` directory of your [Replicant self-hosted download folder]({{< ref "docs/quickstart/arcion-self-hosted#download-replicant-and-create-replicant_home" >}}).
+Click the following buttons to download the appropriate versions of the JDBC driver and client files. After downloading, put the JAR files inside the `lib/` directory of your [Replicant self-hosted download folder]({{< ref "docs/quickstart/arcion-self-hosted#download-replicant-and-create-replicant_home" >}}).
 
 {{< button href="https://repo1.maven.org/maven2/com/ibm/db2/jcc/db2jcc/db2jcc4/db2jcc-db2jcc4.jar" >}}Download IBM Db2 JDBC driver{{< /button >}}
 
