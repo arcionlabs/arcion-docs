@@ -28,6 +28,7 @@ The extracted `replicant-cli` will be referred to as the `$REPLICANT_HOME` direc
    #url: jdbc:teradata://192.168.0.106/DBS_PORT=1025,ENCRYPTDATA=ON,TYPE=FASTEXPORT,USER=replicant,PASSWORD=Replicant#123
    host: 192.168.44.128
    port: 1025
+   #client-charset: UTF8 
 
    username: 'replicant'
    password: 'Replicant#123'
