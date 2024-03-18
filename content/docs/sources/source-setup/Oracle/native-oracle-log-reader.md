@@ -138,6 +138,7 @@ Replace the following:
 - *`REPLICANT_PATH_TO_ARCHIVE_REDO_LOG_FILES`*: path to the archived redo logs relative to Replicant
 
 ### Oracle RAC
+The native log reader supports Oracle RAC active-passive and active-active CDB/PDB environments with automatic failover, while manually handling new instance additions. Follow below steps for setup:
 
 - The **`SCAN`** name must be specified as a host name.
 
