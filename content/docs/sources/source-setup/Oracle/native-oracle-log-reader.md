@@ -146,5 +146,6 @@ The native log reader supports Oracle RAC active-passive and active-active CDB/P
 
 - In the `active-active` case, set the value of **`rac-configuration`** tag to `ACTIVE_ACTIVE`. The default value is `ACTIVE_PASSIVE`.
   ```YAML
+  host: SCAN_NAME
   rac-configuration: ACTIVE_ACTIVE
   ```
