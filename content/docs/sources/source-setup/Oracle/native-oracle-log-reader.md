@@ -12,26 +12,6 @@ url: docs/source-setup/oracle/native-oracle-log-reader/
 
 It's possible to configure Replicant so that it can read and make use of Oracle redo log files.
 
-## Oracle RAC
-
-Arcion's native log reader now support Oracle RAC environments for both CDB and PDB configurations. It can handle both `active-passive` and `active-active` scenarios . In `active-passive` mode, it replicates operations from one active RAC instance. For `active-active` setup, it can replicate from multiple active instances of Oracle RAC at the same time.
-
-### Scope and Limitation
-
-- The feature includes automatic failover support for both `active-passive` and `active-active` scenarios. In the `active-passive` case, if one instance goes down, a backup instance takes over automatically. In this scenario, the backup instance becomes active, and the log reader starts replicating from the new active instance without needing any manual action.
-
-- In the `active-active` case, if one instance goes down, the load is distributed among the other active instances. The log reader automatically stops replication from the inactive node and continues with only the active nodes, all without requiring manual intervention.
-
-- The feature does not automatically handle the addition of an instance to the RAC. In such cases, you must manually stop the replication and then resume it immediately. Upon resumption, the log reader starts replicating from all active instances, including the newly added one.
-
-### Configuration and Setup
-
-- The **`SCAN`** name must be specified as a host name.
-
-- In the `active-passive` case, ensure that either only one instance is running, or the service associated with the PDB or CDB is running on only one instance.
-
-- In the `active-active` case, set the value of **`rac-configuration`** tag to `ACTIVE_ACTIVE` in the [source connection configuration]({{< relref "setup-guide/oracle-traditional-database#v-set-up-connection-configuration" >}}). The default value is `ACTIVE_PASSIVE`.
-
 ## Modify Oracle Connection Configuration File
 
 You need to set the following two parameters in [the Oracle connection configuration file]({{< relref "setup-guide/oracle-traditional-database#v-set-up-connection-configuration" >}}):
@@ -156,3 +136,14 @@ alt-archive-log-path: REPLICANT_PATH_TO_ARCHIVE_REDO_LOG_FILES
 Replace the following:
 - *`REPLICANT_PATH_TO_ONLINE_REDO_LOG_FILES`*: path to the online redo logs relative to Replicant
 - *`REPLICANT_PATH_TO_ARCHIVE_REDO_LOG_FILES`*: path to the archived redo logs relative to Replicant
+
+### Oracle RAC
+
+- The **`SCAN`** name must be specified as a host name.
+
+- In the `active-passive` case, ensure that either only one instance is running, or the service associated with the PDB or CDB is running on only one instance.
+
+- In the `active-active` case, set the value of **`rac-configuration`** tag to `ACTIVE_ACTIVE`. The default value is `ACTIVE_PASSIVE`.
+  ```YAML
+  rac-configuration: {ACTIVE_ACTIVE|ACTIVE_PASSIVE}
+  ```
