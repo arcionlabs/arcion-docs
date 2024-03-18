@@ -145,5 +145,5 @@ Replace the following:
 
 - In the `active-active` case, set the value of **`rac-configuration`** tag to `ACTIVE_ACTIVE`. The default value is `ACTIVE_PASSIVE`.
   ```YAML
-  rac-configuration: {ACTIVE_ACTIVE|ACTIVE_PASSIVE}
+  rac-configuration: ACTIVE_ACTIVE
   ```
