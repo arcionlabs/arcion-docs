@@ -141,6 +141,9 @@ Replace the following:
 The native log reader supports Oracle RAC active-passive and active-active CDB/PDB environments with automatic failover, while manually handling new instance additions. Follow below steps for setup:
 
 - The **`SCAN`** name must be specified as a host name.
+  ```YAML
+  host: SCAN_NAME
+  ```
 
 - In the `active-passive` case, ensure that either only one instance is running, or the service associated with the PDB or CDB is running on only one instance.
 
