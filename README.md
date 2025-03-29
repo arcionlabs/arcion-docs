@@ -1,2 +1,1 @@
-# arcion-docs
-Databricks Bugbounty POC by @nvk0x
+# Databricks Bugbounty POC by @nvk0x
